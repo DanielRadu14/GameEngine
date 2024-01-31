@@ -36,6 +36,8 @@ namespace GameEngine {
 	{
 		friend class EventDispatcher;
 	public:
+		bool m_Handled = false;
+
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
@@ -46,7 +48,7 @@ namespace GameEngine {
 			return GetCategoryFlags() & category;
 		}
 	protected:
-		bool m_Handled = false;
+		//bool m_Handled = false;
 	};
 
 	class EventDispatcher
