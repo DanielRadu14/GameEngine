@@ -4,6 +4,8 @@
 
 #include <GLFW/glfw3.h>
 
+struct GLFWwindow;
+
 namespace GameEngine {
 
 	class WindowsWindow : public Window
