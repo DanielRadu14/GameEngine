@@ -7,7 +7,7 @@
 #include "LayerStack.h"
 
 namespace GameEngine {
-	class GAMEENGINE_API Application
+	class Application
 	{
 	public:
 		Application();

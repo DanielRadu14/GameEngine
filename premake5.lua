@@ -20,7 +20,7 @@ include "GameEngine/vendor/Glad"
 
 project "GameEngine"
 	location "GameEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
 	staticruntime "on"
 
