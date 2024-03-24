@@ -10,7 +10,7 @@ public:
 
 	void OnUpdate() override
 	{
-		printf("ExampleLayer::Update\n");
+		//printf("ExampleLayer::Update\n");
 	}
 
 	void OnEvent(GameEngine::Event& event) override
