@@ -72,9 +72,6 @@
     <ClInclude Include="src\GameEngine\Window.h">
       <Filter>src\GameEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
-      <Filter>src\Platform\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\glm\glm\common.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
@@ -1323,6 +1320,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\WindowsWindow.h">
+      <Filter>src\Platform\Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -1334,7 +1334,7 @@
     <ClCompile Include="src\GameEngine\LayerStack.cpp">
       <Filter>src\GameEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+    <ClCompile Include="src\GameEngine\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
   </ItemGroup>

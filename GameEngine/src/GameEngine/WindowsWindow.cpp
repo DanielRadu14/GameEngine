@@ -1,9 +1,9 @@
 
-#include "../../GameEngine/Window.h"
+#include "Window.h"
 #include "WindowsWindow.h"
-#include "../../GameEngine/Events/ApplicationEvent.h"
-#include "../../GameEngine/Events/KeyEvent.h"
-#include "../../GameEngine/Events/MouseEvent.h"
+#include "Events/ApplicationEvent.h"
+#include "Events/KeyEvent.h"
+#include "Events/MouseEvent.h"
 
 #include "glad/glad.h"
 
