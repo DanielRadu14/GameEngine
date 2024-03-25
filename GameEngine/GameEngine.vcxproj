@@ -159,8 +159,8 @@
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h" />
     <ClInclude Include="src\GameEngine\Layer.h" />
     <ClInclude Include="src\GameEngine\LayerStack.h" />
+    <ClInclude Include="src\GameEngine\WindowInterface.h" />
     <ClInclude Include="src\GameEngine\Window.h" />
-    <ClInclude Include="src\GameEngine\WindowsWindow.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -582,7 +582,7 @@
     <ClCompile Include="src\GameEngine\Application.cpp" />
     <ClCompile Include="src\GameEngine\Layer.cpp" />
     <ClCompile Include="src\GameEngine\LayerStack.cpp" />
-    <ClCompile Include="src\GameEngine\WindowsWindow.cpp" />
+    <ClCompile Include="src\GameEngine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

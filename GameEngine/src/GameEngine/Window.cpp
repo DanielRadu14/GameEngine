@@ -1,6 +1,6 @@
 
+#include "WindowInterface.h"
 #include "Window.h"
-#include "WindowsWindow.h"
 #include "Events/ApplicationEvent.h"
 #include "Events/KeyEvent.h"
 #include "Events/MouseEvent.h"
@@ -16,22 +16,22 @@ namespace GameEngine {
 		printf("GLFW Error ({0}): {1}", error, description);
 	}
 
-	Window* Window::Create(const WindowProps& props)
+	WindowInterface* WindowInterface::Create(const WindowProps& props)
 	{
-		return new WindowsWindow(props);
+		return new Window(props);
 	}
 
-	WindowsWindow::WindowsWindow(const WindowProps& props)
+	Window::Window(const WindowProps& props)
 	{
 		Init(props);
 	}
 
-	WindowsWindow::~WindowsWindow()
+	Window::~Window()
 	{
 		Shutdown();
 	}
 
-	void WindowsWindow::Init(const WindowProps& props)
+	void Window::Init(const WindowProps& props)
 	{
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
@@ -136,18 +136,18 @@ namespace GameEngine {
 		});
 	}
 
-	void WindowsWindow::Shutdown()
+	void Window::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
 	}
 
-	void WindowsWindow::OnUpdate()
+	void Window::OnUpdate()
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}
 
-	void WindowsWindow::SetVSync(bool enabled)
+	void Window::SetVSync(bool enabled)
 	{
 		if (enabled)
 			glfwSwapInterval(1);
@@ -157,7 +157,7 @@ namespace GameEngine {
 		m_Data.VSync = enabled;
 	}
 
-	bool WindowsWindow::IsVSync() const
+	bool Window::IsVSync() const
 	{
 		return m_Data.VSync;
 	}

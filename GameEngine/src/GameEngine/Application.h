@@ -2,7 +2,7 @@
 
 #include "Core.h"
 #include "Events/Event.h"
-#include "Window.h"
+#include "WindowInterface.h"
 #include "Events/ApplicationEvent.h"
 #include "LayerStack.h"
 
@@ -22,7 +22,7 @@ namespace GameEngine {
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
-		std::unique_ptr<Window> m_Window;
+		std::unique_ptr<WindowInterface> m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	};
