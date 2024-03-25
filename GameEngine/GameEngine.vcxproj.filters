@@ -1323,6 +1323,7 @@
     <ClInclude Include="src\GameEngine\Window.h">
       <Filter>src\Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\GPU\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -1337,5 +1338,6 @@
     <ClCompile Include="src\GameEngine\Window.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\GPU\Shader.cpp" />
   </ItemGroup>
 </Project>

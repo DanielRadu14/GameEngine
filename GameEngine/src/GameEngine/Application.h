@@ -5,6 +5,7 @@
 #include "WindowInterface.h"
 #include "Events/ApplicationEvent.h"
 #include "LayerStack.h"
+#include "GPU/Shader.h"
 
 namespace GameEngine {
 	class Application
@@ -25,6 +26,9 @@ namespace GameEngine {
 		std::unique_ptr<WindowInterface> m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		unsigned int VAO = 0;
+		std::unique_ptr<Shader> m_Shader;
 	};
 
 	Application* CreateApplication();
