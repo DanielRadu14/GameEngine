@@ -16,5 +16,6 @@ namespace GameEngine
 		void RenderMesh(Mesh *mesh, Shader* shader);
 
 		std::unordered_map<std::string, Mesh*> meshes;
+		std::unordered_map<std::string, Shader*> shaders;
 	};
 }
