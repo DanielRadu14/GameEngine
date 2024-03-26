@@ -1324,6 +1324,7 @@
       <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\GPU\Shader.h" />
+    <ClInclude Include="src\GameEngine\GPU\Mesh.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -1339,5 +1340,6 @@
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\GPU\Shader.cpp" />
+    <ClCompile Include="src\GameEngine\GPU\Mesh.cpp" />
   </ItemGroup>
 </Project>

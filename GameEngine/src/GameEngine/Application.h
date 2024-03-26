@@ -6,6 +6,7 @@
 #include "Events/ApplicationEvent.h"
 #include "LayerStack.h"
 #include "GPU/Shader.h"
+#include "GameEngine/GPU/Mesh.h"
 
 namespace GameEngine {
 	class Application
@@ -27,7 +28,7 @@ namespace GameEngine {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		unsigned int VAO = 0;
+		std::unordered_map<std::string, Mesh*> meshes;
 		std::unique_ptr<Shader> m_Shader;
 	};
 
