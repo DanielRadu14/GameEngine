@@ -158,6 +158,7 @@
     <ClInclude Include="src\GameEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h" />
     <ClInclude Include="src\GameEngine\GPU\Mesh.h" />
+    <ClInclude Include="src\GameEngine\GPU\Renderer.h" />
     <ClInclude Include="src\GameEngine\GPU\Shader.h" />
     <ClInclude Include="src\GameEngine\Layer.h" />
     <ClInclude Include="src\GameEngine\LayerStack.h" />
@@ -583,6 +584,7 @@
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Mesh.cpp" />
+    <ClCompile Include="src\GameEngine\GPU\Renderer.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Shader.cpp" />
     <ClCompile Include="src\GameEngine\Layer.cpp" />
     <ClCompile Include="src\GameEngine\LayerStack.cpp" />

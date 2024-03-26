@@ -27,9 +27,6 @@ namespace GameEngine {
 		std::unique_ptr<WindowInterface> m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
-		std::unordered_map<std::string, Mesh*> meshes;
-		std::unique_ptr<Shader> m_Shader;
 	};
 
 	Application* CreateApplication();
