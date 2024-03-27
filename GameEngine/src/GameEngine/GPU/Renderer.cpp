@@ -32,7 +32,7 @@ namespace GameEngine
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0]) * indices.size(), &indices[0], GL_STATIC_DRAW);
 
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 
 		return new Mesh(vertices, indices, VAO);
 	}
@@ -41,6 +41,6 @@ namespace GameEngine
 	{
 		shader->Bind();
 		glBindVertexArray(meshes["triangle"]->GetVertexArray());
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, static_cast<int>(mesh->indices.size()), GL_UNSIGNED_INT, 0);
 	}
 }

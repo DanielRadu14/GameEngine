@@ -1,25 +1,27 @@
 #include <GameEngine.h>
 
+GameEngine::Renderer *renderer;
+
 class ExampleLayer : public GameEngine::Layer
 {
 public:
 	ExampleLayer() : Layer("Example")
 	{
+		renderer = new GameEngine::Renderer();
 
-	}
-
-	void OnUpdate() override
-	{
-		//printf("ExampleLayer::Update\n");
 		std::vector<float> vertices = {
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.0f, 0.5f, 0.0f
+			-0.5f, 0.5f, 0.0f,
+			0.5f, 0.5f, 0.0f,
+			-0.5f, -0.8f, 0.0f,
+			0.5f, -0.8f, 0.0f
 		};
 
-		std::vector<unsigned int> indices = { 0, 1, 2 };
+		std::vector<unsigned int> indices =
+		{
+			0, 1, 2,
+			2, 1, 3
+		};
 
-		GameEngine::Renderer *renderer = new GameEngine::Renderer();
 		renderer->meshes["triangle"] = renderer->CreateMesh(vertices, indices);
 
 		std::string vertexCode = R"(
@@ -46,9 +48,12 @@ public:
 
 			)";
 
+		renderer->shaders["red"] = new GameEngine::Shader(vertexCode, fragmentCode);
+	}
 
-		GameEngine::Shader* m_Shader = new GameEngine::Shader(vertexCode, fragmentCode);
-		renderer->RenderMesh(renderer->meshes["triangle"], m_Shader);
+	void OnUpdate() override
+	{
+		renderer->RenderMesh(renderer->meshes["triangle"], renderer->shaders["red"]);
 	}
 
 	void OnEvent(GameEngine::Event& event) override

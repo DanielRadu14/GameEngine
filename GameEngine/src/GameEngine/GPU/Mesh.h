@@ -12,10 +12,11 @@ namespace GameEngine
 		virtual ~Mesh();
 
 		unsigned int GetVertexArray();
+		std::vector<unsigned int> indices;
 	private:
 		unsigned int VAO = 0;
 
 		std::vector<float> vertices;
-		std::vector<unsigned int> indices;
+		
 	};
 }
