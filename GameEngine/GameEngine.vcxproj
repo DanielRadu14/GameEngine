@@ -160,6 +160,8 @@
     <ClInclude Include="src\GameEngine\GPU\Mesh.h" />
     <ClInclude Include="src\GameEngine\GPU\Renderer.h" />
     <ClInclude Include="src\GameEngine\GPU\Shader.h" />
+    <ClInclude Include="src\GameEngine\Input.h" />
+    <ClInclude Include="src\GameEngine\InputInterface.h" />
     <ClInclude Include="src\GameEngine\Layer.h" />
     <ClInclude Include="src\GameEngine\LayerStack.h" />
     <ClInclude Include="src\GameEngine\WindowInterface.h" />
@@ -586,6 +588,7 @@
     <ClCompile Include="src\GameEngine\GPU\Mesh.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Renderer.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Shader.cpp" />
+    <ClCompile Include="src\GameEngine\Input.cpp" />
     <ClCompile Include="src\GameEngine\Layer.cpp" />
     <ClCompile Include="src\GameEngine\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Window.cpp" />

@@ -1326,6 +1326,8 @@
     <ClInclude Include="src\GameEngine\GPU\Shader.h" />
     <ClInclude Include="src\GameEngine\GPU\Mesh.h" />
     <ClInclude Include="src\GameEngine\GPU\Renderer.h" />
+    <ClInclude Include="src\GameEngine\InputInterface.h" />
+    <ClInclude Include="src\GameEngine\Input.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -1343,5 +1345,6 @@
     <ClCompile Include="src\GameEngine\GPU\Shader.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Mesh.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Renderer.cpp" />
+    <ClCompile Include="src\GameEngine\Input.cpp" />
   </ItemGroup>
 </Project>
