@@ -26,6 +26,7 @@ namespace GameEngine {
 		inline WindowInterface& GetWindow() { return *m_Window;}
 		inline static Application& Get() { return *s_Instance; }
 
+		void Application::CameraBehaviour(float deltaTime, float deltaX, float deltaY);
 		Camera& GetCamera() { return *camera; }
 		glm::mat4 GetProjectionMatrix() { return projectionMatrix; }
 
@@ -41,6 +42,8 @@ namespace GameEngine {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		float m_LastFrameTime = 0.0f;
+		float m_LastCursorXPos = 0.0f;
+		float m_LastCursorYPos = 0.0f;
 
 		static Application* s_Instance;
 	};

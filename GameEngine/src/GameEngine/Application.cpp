@@ -66,39 +66,16 @@ namespace GameEngine {
 			float deltaTime = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
+			float deltaX = InputInterface::GetMouseX() - m_LastCursorXPos;
+			float deltaY = InputInterface::GetMouseY() - m_LastCursorYPos;
+			m_LastCursorXPos = InputInterface::GetMouseX();
+			m_LastCursorYPos = InputInterface::GetMouseY();
+
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate(deltaTime);
 
 			m_Window->OnUpdate(deltaTime);
-
-			//camera implementation -- de mutat tot intr-o functie separata
-			float cameraSpeed = 2.0f;
-			if (InputInterface::IsKeyPressed(GLFW_KEY_S))
-			{
-				camera->MoveBackward(deltaTime * cameraSpeed);
-			}
-			if (InputInterface::IsKeyPressed(GLFW_KEY_W))
-			{
-				camera->MoveForward(deltaTime * cameraSpeed);
-			}
-			if (InputInterface::IsKeyPressed(GLFW_KEY_A))
-			{
-				camera->MoveLeft(deltaTime * cameraSpeed);
-			}
-			if (InputInterface::IsKeyPressed(GLFW_KEY_D))
-			{
-				camera->MoveRight(deltaTime * cameraSpeed);
-			}
-			if (InputInterface::IsKeyPressed(GLFW_KEY_Q))
-			{
-				camera->MoveLeft(deltaTime * cameraSpeed);
-				camera->RotateFirstPerson_OX(deltaTime * 1);
-			}
-			if (InputInterface::IsKeyPressed(GLFW_KEY_E))
-			{
-				camera->MoveRight(deltaTime * cameraSpeed);
-				camera->RotateFirstPerson_OX(deltaTime * -1);
-			}
+			CameraBehaviour(deltaTime, deltaX, deltaY);
 		}
 	}
 
@@ -106,5 +83,36 @@ namespace GameEngine {
 	{
 		m_Running = false;
 		return true;
+	}
+
+	void Application::CameraBehaviour(float deltaTime, float deltaX, float deltaY)
+	{
+		float cameraSpeed = 2.0f;
+		float sensivityOX = 0.001f;
+		float sensivityOY = 0.001f;
+
+		if (InputInterface::IsKeyPressed(GLFW_KEY_S))
+		{
+			camera->MoveBackward(deltaTime * cameraSpeed);
+		}
+		if (InputInterface::IsKeyPressed(GLFW_KEY_W))
+		{
+			camera->MoveForward(deltaTime * cameraSpeed);
+		}
+		if (InputInterface::IsKeyPressed(GLFW_KEY_A))
+		{
+			camera->MoveLeft(deltaTime * cameraSpeed);
+		}
+		if (InputInterface::IsKeyPressed(GLFW_KEY_D))
+		{
+			camera->MoveRight(deltaTime * cameraSpeed);
+		}
+		
+		if (InputInterface::IsMouseBtnPressed(GLFW_MOUSE_BUTTON_RIGHT))
+		{
+			camera->RotateFirstPerson_OX(-deltaX * sensivityOX);
+			camera->RotateFirstPerson_OY(-deltaY * sensivityOY);
+		}
+		
 	}
 }

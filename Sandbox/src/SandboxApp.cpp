@@ -61,6 +61,10 @@ public:
 		glm::mat4 modelMatrix = glm::mat4(1);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 0.0f, 0.0f));
 		renderer->RenderMesh(renderer->meshes["triangle"], renderer->shaders["red"], modelMatrix);
+
+		modelMatrix = glm::mat4(1);
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 0.0f, -3.0f));
+		renderer->RenderMesh(renderer->meshes["triangle"], renderer->shaders["red"], modelMatrix);
 	}
 
 	void OnEvent(GameEngine::Event& event) override
