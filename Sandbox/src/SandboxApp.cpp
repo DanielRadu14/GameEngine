@@ -56,7 +56,7 @@ public:
 		renderer->shaders["red"] = new GameEngine::Shader(vertexCode, fragmentCode);
 	}
 
-	void OnUpdate() override
+	void OnUpdate(float deltaTime) override
 	{
 		glm::mat4 modelMatrix = glm::mat4(1);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 0.0f, 0.0f));

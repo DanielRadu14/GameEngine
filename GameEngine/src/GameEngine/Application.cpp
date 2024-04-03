@@ -62,38 +62,42 @@ namespace GameEngine {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glViewport(0, 0, m_Window->GetWidth(), m_Window->GetHeight());
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+			float time = (float)glfwGetTime();
+			float deltaTime = time - m_LastFrameTime;
+			m_LastFrameTime = time;
 
-			m_Window->OnUpdate();
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate(deltaTime);
+
+			m_Window->OnUpdate(deltaTime);
 
 			//camera implementation -- de mutat tot intr-o functie separata
 			float cameraSpeed = 2.0f;
 			if (InputInterface::IsKeyPressed(GLFW_KEY_S))
 			{
-				camera->MoveBackward(cameraSpeed);
+				camera->MoveBackward(deltaTime * cameraSpeed);
 			}
 			if (InputInterface::IsKeyPressed(GLFW_KEY_W))
 			{
-				camera->MoveForward(cameraSpeed);
+				camera->MoveForward(deltaTime * cameraSpeed);
 			}
 			if (InputInterface::IsKeyPressed(GLFW_KEY_A))
 			{
-				camera->MoveLeft(cameraSpeed);
+				camera->MoveLeft(deltaTime * cameraSpeed);
 			}
 			if (InputInterface::IsKeyPressed(GLFW_KEY_D))
 			{
-				camera->MoveRight(cameraSpeed);
+				camera->MoveRight(deltaTime * cameraSpeed);
 			}
 			if (InputInterface::IsKeyPressed(GLFW_KEY_Q))
 			{
-				camera->MoveLeft(cameraSpeed);
-				camera->RotateFirstPerson_OX(1);
+				camera->MoveLeft(deltaTime * cameraSpeed);
+				camera->RotateFirstPerson_OX(deltaTime * 1);
 			}
 			if (InputInterface::IsKeyPressed(GLFW_KEY_E))
 			{
-				camera->MoveRight(cameraSpeed);
-				camera->RotateFirstPerson_OX(-1);
+				camera->MoveRight(deltaTime * cameraSpeed);
+				camera->RotateFirstPerson_OX(deltaTime * -1);
 			}
 		}
 	}

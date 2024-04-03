@@ -139,7 +139,7 @@ namespace GameEngine {
 		glfwDestroyWindow(m_Window);
 	}
 
-	void Window::OnUpdate()
+	void Window::OnUpdate(float deltaTime)
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);

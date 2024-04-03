@@ -36,9 +36,11 @@ namespace GameEngine {
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
+	private:
 		std::unique_ptr<WindowInterface> m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 
 		static Application* s_Instance;
 	};

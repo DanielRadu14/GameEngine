@@ -14,7 +14,7 @@ namespace GameEngine {
 		Window(const WindowProps& props);
 		virtual ~Window();
 
-		void OnUpdate() override;
+		void OnUpdate(float deltaTime) override;
 
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
