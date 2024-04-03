@@ -14,7 +14,8 @@ namespace GameEngine
 		Renderer();
 		virtual ~Renderer();
 
-		Mesh* CreateMesh(std::vector<float> vertices, std::vector<unsigned int> indices);
+		Mesh* LoadMesh(std::string name, std::string filePath);
+		Mesh* CreateMesh(std::string name, std::vector<float> vertices, std::vector<unsigned int> indices);
 		void RenderMesh(Mesh *mesh, Shader* shader, const glm::mat4 &modelMatrix);
 
 		std::unordered_map<std::string, Mesh*> meshes;

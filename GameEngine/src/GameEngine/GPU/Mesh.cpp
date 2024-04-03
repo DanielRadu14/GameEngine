@@ -3,8 +3,9 @@
 
 namespace GameEngine
 {
-	Mesh::Mesh(std::vector<float> vertices, std::vector<unsigned int> indices, unsigned int VAO)
+	Mesh::Mesh(std::string name, std::vector<float> vertices, std::vector<unsigned int> indices, unsigned int VAO)
 	{
+		this->name = name;
 		this->vertices = vertices;
 		this->indices = indices;
 		this->VAO = VAO;

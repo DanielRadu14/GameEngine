@@ -22,7 +22,11 @@ public:
 			2, 1, 3
 		};
 
-		renderer->meshes["triangle"] = renderer->CreateMesh(vertices, indices);
+		renderer->meshes["quad"] = renderer->CreateMesh("quad", vertices, indices);
+
+		renderer->meshes["box"] = renderer->LoadMesh("box", "D:\\Facultate\\PPBG\\gfx-framework-master\\assets\\models\\primitives\\box.obj");
+		renderer->meshes["sphere"] = renderer->LoadMesh("sphere", "D:\\Facultate\\PPBG\\gfx-framework-master\\assets\\models\\primitives\\sphere.obj");
+		renderer->meshes["teapot"] = renderer->LoadMesh("teapot", "D:\\Facultate\\PPBG\\gfx-framework-master\\assets\\models\\primitives\\teapot.obj");
 
 		std::string vertexCode = R"(
 				#version 330 core
@@ -60,18 +64,23 @@ public:
 	{
 		glm::mat4 modelMatrix = glm::mat4(1);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 0.0f, 0.0f));
-		renderer->RenderMesh(renderer->meshes["triangle"], renderer->shaders["red"], modelMatrix);
+		renderer->RenderMesh(renderer->meshes["quad"], renderer->shaders["red"], modelMatrix);
 
 		modelMatrix = glm::mat4(1);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 0.0f, -3.0f));
-		renderer->RenderMesh(renderer->meshes["triangle"], renderer->shaders["red"], modelMatrix);
+		renderer->RenderMesh(renderer->meshes["box"], renderer->shaders["red"], modelMatrix);
+
+		modelMatrix = glm::mat4(1);
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0f, 0.0f, -3.0f));
+		renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["red"], modelMatrix);
+
+		modelMatrix = glm::mat4(1);
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0, 0.0f, 0.0f));
+		renderer->RenderMesh(renderer->meshes["teapot"], renderer->shaders["red"], modelMatrix);
 	}
 
 	void OnEvent(GameEngine::Event& event) override
 	{
-		//episod Moving to Sandbox pentru exemple
-		printf(event.ToString().c_str());
-		printf("\n");
 	}
 };
 

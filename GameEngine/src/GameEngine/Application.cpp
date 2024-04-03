@@ -42,8 +42,8 @@ namespace GameEngine {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-		printf(e.ToString().c_str());
-		printf("\n");
+		//printf(e.ToString().c_str());
+		//printf("\n");
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -88,8 +88,8 @@ namespace GameEngine {
 	void Application::CameraBehaviour(float deltaTime, float deltaX, float deltaY)
 	{
 		float cameraSpeed = 2.0f;
-		float sensivityOX = 0.001f;
-		float sensivityOY = 0.001f;
+		float sensivityOX = 0.005f;
+		float sensivityOY = 0.005f;
 
 		if (InputInterface::IsKeyPressed(GLFW_KEY_S))
 		{
