@@ -37,9 +37,23 @@ namespace GameEngine
 		return new Mesh(vertices, indices, VAO);
 	}
 
-	void Renderer::RenderMesh(Mesh *mesh, Shader* shader)
+	void Renderer::RenderMesh(Mesh *mesh, Shader* shader, const glm::mat4 &modelMatrix)
 	{
 		shader->Bind();
+
+		Application* application = &Application::Get();
+		Camera camera = application->GetCamera();
+
+		int location = glGetUniformLocation(shader->program, "Model");
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+		location = glGetUniformLocation(shader->program, "View");
+		glm::mat4 viewMatrix = camera.GetViewMatrix();
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
+
+		location = glGetUniformLocation(shader->program, "Projection");
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(application->GetProjectionMatrix()));
+
 		glBindVertexArray(meshes["triangle"]->GetVertexArray());
 		glDrawElements(GL_TRIANGLES, static_cast<int>(mesh->indices.size()), GL_UNSIGNED_INT, 0);
 	}

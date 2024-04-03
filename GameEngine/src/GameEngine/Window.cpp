@@ -36,6 +36,7 @@ namespace GameEngine {
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
+		m_Data.AspectRatio = props.AspectRatio;
 
 		if (!s_GLFWInitialized)
 		{

@@ -13,7 +13,7 @@ namespace GameEngine {
 		void Bind() const;
 		void Unbind() const;
 
-	private:
+	public:
 		uint32_t program;
 	};
 

@@ -10,11 +10,12 @@ namespace GameEngine {
 		std::string Title;
 		unsigned int Width;
 		unsigned int Height;
+		float AspectRatio;
 
 		WindowProps(const std::string& title = "My GameEngine",
 			unsigned int width = 1280,
 			unsigned int height = 720)
-			: Title(title), Width(width), Height(height)
+			: Title(title), Width(width), Height(height), AspectRatio(float(width)/height)
 		{
 		}
 	};
@@ -31,6 +32,7 @@ namespace GameEngine {
 
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
+		virtual float GetAspectRatio() const = 0;
 
 		// Window attributes
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;

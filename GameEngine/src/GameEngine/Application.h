@@ -7,6 +7,7 @@
 #include "LayerStack.h"
 #include "GPU/Shader.h"
 #include "GameEngine/GPU/Mesh.h"
+#include "Camera/Camera.h"
 
 namespace GameEngine {
 	class Application
@@ -24,6 +25,13 @@ namespace GameEngine {
 
 		inline WindowInterface& GetWindow() { return *m_Window;}
 		inline static Application& Get() { return *s_Instance; }
+
+		Camera& GetCamera() { return *camera; }
+		glm::mat4 GetProjectionMatrix() { return projectionMatrix; }
+
+	protected:
+		Camera *camera;
+		glm::mat4 projectionMatrix;
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);

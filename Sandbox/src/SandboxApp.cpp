@@ -12,8 +12,8 @@ public:
 		std::vector<float> vertices = {
 			-0.5f, 0.5f, 0.0f,
 			0.5f, 0.5f, 0.0f,
-			-0.5f, -0.8f, 0.0f,
-			0.5f, -0.8f, 0.0f
+			-0.5f, -0.5f, 0.0f,
+			0.5f, -0.5f, 0.0f
 		};
 
 		std::vector<unsigned int> indices =
@@ -29,9 +29,14 @@ public:
 
 				layout(location = 0) in vec3 a_Position;
 
+				// Uniform properties
+				uniform mat4 Model;
+				uniform mat4 View;
+				uniform mat4 Projection;
+
 				void main()
 				{
-					gl_Position = vec4(a_Position, 1.0);
+					gl_Position = Projection * View * Model * vec4(a_Position, 1.0);
 				}
 
 			)";
@@ -53,11 +58,14 @@ public:
 
 	void OnUpdate() override
 	{
-		renderer->RenderMesh(renderer->meshes["triangle"], renderer->shaders["red"]);
+		glm::mat4 modelMatrix = glm::mat4(1);
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 0.0f, 0.0f));
+		renderer->RenderMesh(renderer->meshes["triangle"], renderer->shaders["red"], modelMatrix);
 	}
 
 	void OnEvent(GameEngine::Event& event) override
 	{
+		//episod Moving to Sandbox pentru exemple
 		printf(event.ToString().c_str());
 		printf("\n");
 	}

@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Application.h" />
+    <ClInclude Include="src\GameEngine\Camera\Camera.h" />
     <ClInclude Include="src\GameEngine\Core.h" />
     <ClInclude Include="src\GameEngine\EntryPoint.h" />
     <ClInclude Include="src\GameEngine\Events\ApplicationEvent.h" />
@@ -585,6 +586,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp" />
+    <ClCompile Include="src\GameEngine\Camera\Camera.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Mesh.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Renderer.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Shader.cpp" />
