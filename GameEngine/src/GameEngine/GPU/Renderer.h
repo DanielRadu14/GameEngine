@@ -16,9 +16,15 @@ namespace GameEngine
 
 		Mesh* LoadMesh(std::string name, std::string filePath);
 		Mesh* CreateMesh(std::string name, std::vector<float> vertices, std::vector<unsigned int> indices);
-		void RenderMesh(Mesh *mesh, Shader* shader, const glm::mat4 &modelMatrix);
+		Mesh* CreateMesh(std::string name, std::vector<float> vertices, std::vector<unsigned int> indices, std::vector<glm::vec3> normals);
+		void RenderMesh(Mesh *mesh, Shader* shader, const glm::mat4 &modelMatrix, const glm::vec3 &color = glm::vec3(1));
 
 		std::unordered_map<std::string, Mesh*> meshes;
 		std::unordered_map<std::string, Shader*> shaders;
+
+		glm::vec3 lightPosition;
+		unsigned int materialShininess;
+		float materialKd;
+		float materialKs;
 	};
 }
