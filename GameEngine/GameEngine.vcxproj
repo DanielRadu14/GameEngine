@@ -165,8 +165,8 @@
     <ClInclude Include="src\GameEngine\InputInterface.h" />
     <ClInclude Include="src\GameEngine\Layer.h" />
     <ClInclude Include="src\GameEngine\LayerStack.h" />
-    <ClInclude Include="src\GameEngine\WindowInterface.h" />
     <ClInclude Include="src\GameEngine\Window.h" />
+    <ClInclude Include="src\GameEngine\WindowInterface.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />

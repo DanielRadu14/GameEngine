@@ -7,14 +7,14 @@
     <Filter Include="src\GameEngine">
       <UniqueIdentifier>{8CEC7F4E-78BA-7354-614E-E47A4DBB4FB9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameEngine\Camera">
+      <UniqueIdentifier>{846B32D3-F0D7-EDCD-B9CB-852B25F70F36}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\GameEngine\Events">
       <UniqueIdentifier>{F08254D9-5CEF-0FD4-25E3-A731910E323C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Platform">
-      <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Platform\Windows">
-      <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
+    <Filter Include="src\GameEngine\GPU">
+      <UniqueIdentifier>{0751962E-F334-5784-5C95-51D748984106}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -45,6 +45,9 @@
     <ClInclude Include="src\GameEngine\Application.h">
       <Filter>src\GameEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Camera\Camera.h">
+      <Filter>src\GameEngine\Camera</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Core.h">
       <Filter>src\GameEngine</Filter>
     </ClInclude>
@@ -63,10 +66,31 @@
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h">
       <Filter>src\GameEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\GPU\Mesh.h">
+      <Filter>src\GameEngine\GPU</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\GPU\Renderer.h">
+      <Filter>src\GameEngine\GPU</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\GPU\Shader.h">
+      <Filter>src\GameEngine\GPU</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Input.h">
+      <Filter>src\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\InputInterface.h">
+      <Filter>src\GameEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Layer.h">
       <Filter>src\GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\LayerStack.h">
+      <Filter>src\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Window.h">
+      <Filter>src\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\WindowInterface.h">
       <Filter>src\GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\common.hpp">
@@ -1317,21 +1341,24 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\WindowInterface.h">
-      <Filter>src\GameEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameEngine\Window.h">
-      <Filter>src\Platform\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameEngine\GPU\Shader.h" />
-    <ClInclude Include="src\GameEngine\GPU\Mesh.h" />
-    <ClInclude Include="src\GameEngine\GPU\Renderer.h" />
-    <ClInclude Include="src\GameEngine\InputInterface.h" />
-    <ClInclude Include="src\GameEngine\Input.h" />
-    <ClInclude Include="src\GameEngine\Camera\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
+      <Filter>src\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Camera\Camera.cpp">
+      <Filter>src\GameEngine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\GPU\Mesh.cpp">
+      <Filter>src\GameEngine\GPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\GPU\Renderer.cpp">
+      <Filter>src\GameEngine\GPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\GPU\Shader.cpp">
+      <Filter>src\GameEngine\GPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Input.cpp">
       <Filter>src\GameEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Layer.cpp">
@@ -1341,12 +1368,7 @@
       <Filter>src\GameEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Window.cpp">
-      <Filter>src\Platform\Windows</Filter>
+      <Filter>src\GameEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\GPU\Shader.cpp" />
-    <ClCompile Include="src\GameEngine\GPU\Mesh.cpp" />
-    <ClCompile Include="src\GameEngine\GPU\Renderer.cpp" />
-    <ClCompile Include="src\GameEngine\Input.cpp" />
-    <ClCompile Include="src\GameEngine\Camera\Camera.cpp" />
   </ItemGroup>
 </Project>

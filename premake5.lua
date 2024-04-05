@@ -101,7 +101,8 @@ project "Sandbox"
 	{
 		"GameEngine/vendor/spdlog/include",
 		"GameEngine/src",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.GLFW}",
 	}
 
 	links

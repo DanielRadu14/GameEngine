@@ -26,7 +26,6 @@ namespace GameEngine {
 		inline WindowInterface& GetWindow() { return *m_Window;}
 		inline static Application& Get() { return *s_Instance; }
 
-		void Application::CameraBehaviour(float deltaTime, float deltaX, float deltaY);
 		Camera& GetCamera() { return *camera; }
 		glm::mat4 GetProjectionMatrix() { return projectionMatrix; }
 

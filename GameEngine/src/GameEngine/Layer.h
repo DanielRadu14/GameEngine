@@ -13,6 +13,7 @@ namespace GameEngine {
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate(float deltaTime) {}
+		virtual void OnInputUpdate(float deltaTime, float deltaX, float deltaY) {}
 		virtual void OnEvent(Event& event) {}
 
 		const std::string& GetName() const { return m_DebugName; }

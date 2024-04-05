@@ -1,6 +1,11 @@
 #include <GameEngine.h>
+#include "GLFW/glfw3.h"
+#include <stdio.h>
+#include <iostream>
 
 GameEngine::Renderer *renderer;
+GameEngine::Application* application;
+GameEngine::Camera *camera;
 
 class ExampleLayer : public GameEngine::Layer
 {
@@ -8,6 +13,8 @@ public:
 	ExampleLayer() : Layer("Example")
 	{
 		renderer = new GameEngine::Renderer();
+		application = &GameEngine::Application::Get();
+		camera = &application->GetCamera();
 
 		std::vector<float> vertices = {
 			-0.5f, 0.5f, 0.0f,
@@ -120,6 +127,40 @@ public:
 		modelMatrix = glm::mat4(1);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0, 0.0f, 0.0f));
 		renderer->RenderMesh(renderer->meshes["teapot"], renderer->shaders["red"], modelMatrix);*/
+	}
+
+	void OnInputUpdate(float deltaTime, float deltaX, float deltaY) override
+	{
+		if (GameEngine::InputInterface::IsMouseBtnPressed(GLFW_MOUSE_BUTTON_RIGHT))
+		{
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_S))
+			{
+				camera->MoveBackward(deltaTime * camera->cameraSpeed);
+			}
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_W))
+			{
+				camera->MoveForward(deltaTime * camera->cameraSpeed);
+			}
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_A))
+			{
+				camera->MoveLeft(deltaTime * camera->cameraSpeed);
+			}
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_D))
+			{
+				camera->MoveRight(deltaTime * camera->cameraSpeed);
+			}
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_Q))
+			{
+				camera->MoveDown(deltaTime * camera->cameraSpeed);
+			}
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_E))
+			{
+				camera->MoveUp(deltaTime * camera->cameraSpeed);
+			}
+		
+			camera->RotateFirstPerson_OX(-deltaX * camera->sensivityOX);
+			camera->RotateFirstPerson_OY(-deltaY * camera->sensivityOY);
+		}
 	}
 
 	void OnEvent(GameEngine::Event& event) override

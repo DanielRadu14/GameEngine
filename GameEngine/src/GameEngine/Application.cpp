@@ -72,10 +72,12 @@ namespace GameEngine {
 			m_LastCursorYPos = InputInterface::GetMouseY();
 
 			for (Layer* layer : m_LayerStack)
+			{
 				layer->OnUpdate(deltaTime);
-
+				layer->OnInputUpdate(deltaTime, deltaX, deltaY);
+			}
+				
 			m_Window->OnUpdate(deltaTime);
-			CameraBehaviour(deltaTime, deltaX, deltaY);
 		}
 	}
 
@@ -83,36 +85,5 @@ namespace GameEngine {
 	{
 		m_Running = false;
 		return true;
-	}
-
-	void Application::CameraBehaviour(float deltaTime, float deltaX, float deltaY)
-	{
-		float cameraSpeed = 2.0f;
-		float sensivityOX = 0.005f;
-		float sensivityOY = 0.005f;
-
-		if (InputInterface::IsKeyPressed(GLFW_KEY_S))
-		{
-			camera->MoveBackward(deltaTime * cameraSpeed);
-		}
-		if (InputInterface::IsKeyPressed(GLFW_KEY_W))
-		{
-			camera->MoveForward(deltaTime * cameraSpeed);
-		}
-		if (InputInterface::IsKeyPressed(GLFW_KEY_A))
-		{
-			camera->MoveLeft(deltaTime * cameraSpeed);
-		}
-		if (InputInterface::IsKeyPressed(GLFW_KEY_D))
-		{
-			camera->MoveRight(deltaTime * cameraSpeed);
-		}
-		
-		if (InputInterface::IsMouseBtnPressed(GLFW_MOUSE_BUTTON_RIGHT))
-		{
-			camera->RotateFirstPerson_OX(-deltaX * sensivityOX);
-			camera->RotateFirstPerson_OY(-deltaY * sensivityOY);
-		}
-		
 	}
 }

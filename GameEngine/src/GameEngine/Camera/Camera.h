@@ -61,6 +61,18 @@ namespace GameEngine
 			position -= dir * distance;
 		}
 
+		void MoveUp(float distance)
+		{
+			glm::vec3 dir = glm::normalize(glm::vec3(0, 1, 0));
+			position += dir * distance;
+		}
+
+		void MoveDown(float distance)
+		{
+			glm::vec3 dir = glm::normalize(glm::vec3(0, 1, 0));
+			position -= dir * distance;
+		}
+
 		void TranslateForward(float distance)
 		{
 			position += distance * glm::normalize(forward);
@@ -150,5 +162,9 @@ namespace GameEngine
 		glm::vec3 forward;
 		glm::vec3 right;
 		glm::vec3 up;
+
+		float cameraSpeed = 2.0f;
+		float sensivityOX = 0.005f;
+		float sensivityOY = 0.005f;
 	};
 }
