@@ -158,6 +158,7 @@
     <ClInclude Include="src\GameEngine\Events\Event.h" />
     <ClInclude Include="src\GameEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h" />
+    <ClInclude Include="src\GameEngine\GPU\ImplementedShaders.h" />
     <ClInclude Include="src\GameEngine\GPU\Mesh.h" />
     <ClInclude Include="src\GameEngine\GPU\Renderer.h" />
     <ClInclude Include="src\GameEngine\GPU\Shader.h" />

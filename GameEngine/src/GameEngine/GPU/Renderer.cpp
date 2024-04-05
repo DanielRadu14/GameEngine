@@ -165,11 +165,6 @@ namespace GameEngine
 		Application* application = &Application::Get();
 		Camera camera = application->GetCamera();
 
-		lightPosition = glm::vec3(0, 2, 3.5f);
-		materialShininess = 30;
-		materialKd = 0.5;
-		materialKs = 0.5;
-
 		int location = glGetUniformLocation(shader->program, "light_position");
 		glUniform3f(location, lightPosition.x, lightPosition.y, lightPosition.z);
 

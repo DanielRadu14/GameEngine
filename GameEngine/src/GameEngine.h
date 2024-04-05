@@ -7,4 +7,5 @@
 #include "GameEngine/GPU/Renderer.h"
 #include "GameEngine/Camera/Camera.h"
 #include "GameEngine/InputInterface.h"
+#include "GameEngine/GPU/ImplementedShaders.h"
 #include "GLFW/glfw3.h"

@@ -22,9 +22,9 @@ namespace GameEngine
 		std::unordered_map<std::string, Mesh*> meshes;
 		std::unordered_map<std::string, Shader*> shaders;
 
-		glm::vec3 lightPosition;
-		unsigned int materialShininess;
-		float materialKd;
-		float materialKs;
+		glm::vec3 lightPosition = glm::vec3(0, 2, 3.5f);
+		unsigned int materialShininess = 30;
+		float materialKd = 0.5;
+		float materialKs = 0.5;
 	};
 }
