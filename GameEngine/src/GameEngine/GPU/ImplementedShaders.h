@@ -80,6 +80,6 @@ namespace GameEngine
 
 	void static ImportShaders(Renderer *renderer)
 	{
-		renderer->shaders["BasicShader"] = new GameEngine::Shader(vertexCode, fragmentCode);
+		renderer->shaders["BasicShader"] = new Shader(vertexCode, fragmentCode);
 	}
 }

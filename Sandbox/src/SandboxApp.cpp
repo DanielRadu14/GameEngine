@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include <iostream>
 
-GameEngine::Renderer *renderer;
-GameEngine::Application* application;
-GameEngine::Camera *camera;
-
 class ExampleLayer : public GameEngine::Layer
 {
 public:
+	GameEngine::Renderer *renderer;
+	GameEngine::Application* application;
+	GameEngine::Camera *camera;
+
 	ExampleLayer() : Layer("Example")
 	{
 		renderer = new GameEngine::Renderer();
@@ -33,10 +33,9 @@ public:
 			};
 			//renderer->meshes["quad"] = renderer->CreateMesh("quad", vertices, indices);
 		}
-		
 
 		renderer->meshes["box"] = renderer->LoadMesh("box", "D:\\Facultate\\PPBG\\gfx-framework-master\\assets\\models\\primitives\\box.obj");
-		//renderer->meshes["sphere"] = renderer->LoadMesh("sphere", "D:\\Facultate\\PPBG\\gfx-framework-master\\assets\\models\\primitives\\sphere.obj");
+		renderer->meshes["sphere"] = renderer->LoadMesh("sphere", "D:\\Facultate\\PPBG\\gfx-framework-master\\assets\\models\\primitives\\sphere.obj");
 		//renderer->meshes["teapot"] = renderer->LoadMesh("teapot", "D:\\Facultate\\PPBG\\gfx-framework-master\\assets\\models\\primitives\\teapot.obj");
 		//renderer->meshes["gun"] = renderer->LoadMesh("gun", "D:\\Facultate\\Master\\xm177_with_gl.obj");
 	}
@@ -51,11 +50,11 @@ public:
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 2, 2.5f));
 		renderer->RenderMesh(renderer->meshes["box"], renderer->shaders["BasicShader"], modelMatrix, glm::vec3(0.1f, 0.5f, 0.87f));
 
-		/*modelMatrix = glm::mat4(1);
-		modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0f, 0.0f, -3.0f));
-		renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["red"], modelMatrix);
-
 		modelMatrix = glm::mat4(1);
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0f, 0.0f, -3.0f));
+		renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["BasicShader"], modelMatrix);
+
+		/*modelMatrix = glm::mat4(1);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0, 0.0f, 0.0f));
 		renderer->RenderMesh(renderer->meshes["teapot"], renderer->shaders["red"], modelMatrix);*/
 	}
