@@ -29,12 +29,17 @@ namespace GameEngine {
 		Camera& GetCamera() { return *camera; }
 		glm::mat4 GetProjectionMatrix() { return projectionMatrix; }
 
-	protected:
-		Camera *camera;
-		glm::mat4 projectionMatrix;
+		void LightMovement(float deltaTime, float deltaX, float deltaY);
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+
+	public:
+		glm::vec3 lightPosition = glm::vec3(0, 2, 3.5f);
+
+	protected:
+		Camera *camera;
+		glm::mat4 projectionMatrix;
 
 	private:
 		std::unique_ptr<WindowInterface> m_Window;

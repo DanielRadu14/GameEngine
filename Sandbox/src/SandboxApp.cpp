@@ -10,13 +10,26 @@ public:
 	GameEngine::Application* application;
 	GameEngine::Camera *camera;
 
+	glm::mat4 head;
+	glm::mat4 body;
+	glm::mat4 leftHand;
+	glm::mat4 rightHand;
+	glm::mat4 leftLeg;
+	glm::mat4 rightLeg;
+
+	glm::vec3 playerMoveDirection;
+	float playerRotateAngle;
+
 	ExampleLayer() : Layer("Example")
 	{
-		renderer = new GameEngine::Renderer();
+		renderer = &GameEngine::Renderer::Get();
 		application = &GameEngine::Application::Get();
 		camera = &application->GetCamera();
 
 		GameEngine::ImportShaders(renderer);
+
+		playerRotateAngle = 0;
+		playerMoveDirection = glm::vec3(0.5f, 0, -1);
 
 		{
 			std::vector<float> vertices = {
@@ -29,38 +42,89 @@ public:
 			std::vector<unsigned int> indices =
 			{
 				0, 1, 2,
-				2, 1, 3
+				2, 3, 1
 			};
-			//renderer->meshes["quad"] = renderer->CreateMesh("quad", vertices, indices);
+
+			std::vector<glm::vec3> normals;
+			normals.push_back(glm::vec3(0.0f, 0.0f, -1.0f));
+			normals.push_back(glm::vec3(0.0f, 0.0f, -1.0f));
+			renderer->meshes["quad"] = renderer->CreateMesh("quad", vertices, indices, normals);
 		}
 
 		renderer->meshes["box"] = renderer->LoadMesh("box", "D:\\Facultate\\PPBG\\gfx-framework-master\\assets\\models\\primitives\\box.obj");
 		renderer->meshes["sphere"] = renderer->LoadMesh("sphere", "D:\\Facultate\\PPBG\\gfx-framework-master\\assets\\models\\primitives\\sphere.obj");
-		//renderer->meshes["teapot"] = renderer->LoadMesh("teapot", "D:\\Facultate\\PPBG\\gfx-framework-master\\assets\\models\\primitives\\teapot.obj");
-		//renderer->meshes["gun"] = renderer->LoadMesh("gun", "D:\\Facultate\\Master\\xm177_with_gl.obj");
 	}
 
 	void OnUpdate(float deltaTime) override
 	{
-		/*glm::mat4 modelMatrix = glm::mat4(1);
-		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 0.0f, 0.0f));
-		renderer->RenderMesh(renderer->meshes["quad"], renderer->shaders["red"], modelMatrix);*/
+		{
+			glm::mat4 modelMatrix = glm::mat4(1);
+			modelMatrix = glm::translate(modelMatrix, application->lightPosition);
+			modelMatrix = glm::scale(modelMatrix, glm::vec3(0.25f, 0.25f, 0.25f));
+			renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["BasicShader"], modelMatrix);
+		}
 
-		glm::mat4 modelMatrix = glm::mat4(1);
-		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 2, 2.5f));
-		renderer->RenderMesh(renderer->meshes["box"], renderer->shaders["BasicShader"], modelMatrix, glm::vec3(0.1f, 0.5f, 0.87f));
+		{
+			glm::mat4 modelMatrix = glm::mat4(1);
+			modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+			modelMatrix = glm::scale(modelMatrix, glm::vec3(10.0f, 1.0f, 10.0f));
+			modelMatrix = glm::rotate(modelMatrix, RADIANS(90), glm::vec3(1, 0, 0));
+			renderer->RenderMesh(renderer->meshes["quad"], renderer->shaders["BasicShader"], modelMatrix, glm::vec3(0.51f, 0.51f, 2.04f));
+		}
 
-		modelMatrix = glm::mat4(1);
-		modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0f, 0.0f, -3.0f));
-		renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["BasicShader"], modelMatrix);
+		{
+			head = glm::mat4(1);
+			head = glm::translate(head, glm::vec3(playerMoveDirection.x, playerMoveDirection.y, playerMoveDirection.z));
+			head = glm::rotate(head, playerRotateAngle, glm::vec3(0, 1, 0));
+			head = glm::translate(head, glm::vec3(-playerMoveDirection.x, -playerMoveDirection.y, -playerMoveDirection.z));
+			head = glm::translate(head, glm::vec3(0, 1.1f, 0) + playerMoveDirection);
+			head = glm::scale(head, glm::vec3(0.25f, 0.15f, 0.15f));
+			renderer->RenderMesh(renderer->meshes["box"], renderer->shaders["IlluminatedShader"], head, glm::vec3(0.5f, 0.2f, 0.45f));
 
-		/*modelMatrix = glm::mat4(1);
-		modelMatrix = glm::translate(modelMatrix, glm::vec3(5.0, 0.0f, 0.0f));
-		renderer->RenderMesh(renderer->meshes["teapot"], renderer->shaders["red"], modelMatrix);*/
+			body = glm::mat4(1);
+			body = glm::translate(body, glm::vec3(0, 0.77f, 0) + playerMoveDirection);
+			body = glm::scale(body, glm::vec3(0.40f, 0.40f, 0.40f));
+			body = glm::rotate(body, playerRotateAngle, glm::vec3(0, 1, 0));
+			renderer->RenderMesh(renderer->meshes["box"], renderer->shaders["IlluminatedShader"], body, glm::vec3(0.2f, 0.7f, 0.9f));
+
+			leftHand = glm::mat4(1);
+			leftHand = glm::translate(leftHand, glm::vec3(playerMoveDirection.x, playerMoveDirection.y, playerMoveDirection.z));
+			leftHand = glm::rotate(leftHand, playerRotateAngle, glm::vec3(0, 1, 0));
+			leftHand = glm::translate(leftHand, glm::vec3(-playerMoveDirection.x, -playerMoveDirection.y, -playerMoveDirection.z));
+			leftHand = glm::translate(leftHand, glm::vec3(-0.28f, 0.77f, 0) + playerMoveDirection);
+			leftHand = glm::scale(leftHand, glm::vec3(0.125f, 0.55f, 0.25f));
+			renderer->RenderMesh(renderer->meshes["box"], renderer->shaders["IlluminatedShader"], leftHand, glm::vec3(0.2f, 0.7f, 0.9f));
+
+			rightHand = glm::mat4(1);
+			rightHand = glm::translate(rightHand, glm::vec3(playerMoveDirection.x, playerMoveDirection.y, playerMoveDirection.z));
+			rightHand = glm::rotate(rightHand, playerRotateAngle, glm::vec3(0, 1, 0));
+			rightHand = glm::translate(rightHand, glm::vec3(-playerMoveDirection.x, -playerMoveDirection.y, -playerMoveDirection.z));
+			rightHand = glm::translate(rightHand, glm::vec3(0.28f, 0.77f, 0) + playerMoveDirection);
+			rightHand = glm::scale(rightHand, glm::vec3(0.125f, 0.55f, 0.25f));
+			renderer->RenderMesh(renderer->meshes["box"], renderer->shaders["IlluminatedShader"], rightHand, glm::vec3(0.2f, 0.7f, 0.9f));
+
+			leftLeg = glm::mat4(1);
+			leftLeg = glm::translate(leftLeg, glm::vec3(playerMoveDirection.x, playerMoveDirection.y, playerMoveDirection.z));
+			leftLeg = glm::rotate(leftLeg, playerRotateAngle, glm::vec3(0, 1, 0));
+			leftLeg = glm::translate(leftLeg, glm::vec3(-playerMoveDirection.x, -playerMoveDirection.y, -playerMoveDirection.z));
+			leftLeg = glm::translate(leftLeg, glm::vec3(-0.1f, 0.25f, 0) + playerMoveDirection);
+			leftLeg = glm::scale(leftLeg, glm::vec3(0.125f, 0.5f, 0.25f));
+			renderer->RenderMesh(renderer->meshes["box"], renderer->shaders["IlluminatedShader"], leftLeg, glm::vec3(0.5f, 0.2f, 0.45f));
+
+			rightLeg = glm::mat4(1);
+			rightLeg = glm::translate(rightLeg, glm::vec3(playerMoveDirection.x, playerMoveDirection.y, playerMoveDirection.z));
+			rightLeg = glm::rotate(rightLeg, playerRotateAngle, glm::vec3(0, 1, 0));
+			rightLeg = glm::translate(rightLeg, glm::vec3(-playerMoveDirection.x, -playerMoveDirection.y, -playerMoveDirection.z));
+			rightLeg = glm::translate(rightLeg, glm::vec3(0.1f, 0.25f, 0) + playerMoveDirection);
+			rightLeg = glm::scale(rightLeg, glm::vec3(0.125f, 0.5f, 0.25f));
+			renderer->RenderMesh(renderer->meshes["box"], renderer->shaders["IlluminatedShader"], rightLeg, glm::vec3(0.5f, 0.2f, 0.45f));
+		}
+
 	}
 
 	void OnInputUpdate(float deltaTime, float deltaX, float deltaY) override
 	{
+		//camera movement
 		if (GameEngine::InputInterface::IsMouseBtnPressed(GLFW_MOUSE_BUTTON_RIGHT))
 		{
 			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_S))

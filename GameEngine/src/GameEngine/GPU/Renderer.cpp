@@ -7,9 +7,10 @@ using namespace std;
 
 namespace GameEngine
 {
+	Renderer* Renderer::s_Instance = nullptr;
 	Renderer::Renderer()
 	{
-
+		s_Instance = this;
 	}
 
 	Renderer::~Renderer()
@@ -166,7 +167,7 @@ namespace GameEngine
 		Camera camera = application->GetCamera();
 
 		int location = glGetUniformLocation(shader->program, "light_position");
-		glUniform3f(location, lightPosition.x, lightPosition.y, lightPosition.z);
+		glUniform3f(location, application->lightPosition.x, application->lightPosition.y, application->lightPosition.z);
 
 		glm::vec3 eyePosition = camera.position;
 		location = glGetUniformLocation(shader->program, "eye_position");

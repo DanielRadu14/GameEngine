@@ -3,6 +3,7 @@
 #include "GameEngine/GPU/Renderer.h"
 #include "InputInterface.h"
 #include "Window.h"
+#include "glm/glm.hpp"
 
 namespace GameEngine {
 
@@ -18,6 +19,8 @@ namespace GameEngine {
 
 		camera = new Camera();
 		camera->Set(glm::vec3(0, 2, 3.5f), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
+
+		Renderer *renderer = new Renderer();
 
 		projectionMatrix = glm::perspective(RADIANS(60), m_Window->GetAspectRatio(), 0.01f, 200.0f);
 	}
@@ -57,10 +60,12 @@ namespace GameEngine {
 	{
 		while (m_Running)
 		{
-			//de facut functii separate si mutate in Sandbox (episod : Moving to SandBox)
 			glClearColor(0.1f, 0.1f, 0.1f , 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glViewport(0, 0, m_Window->GetWidth(), m_Window->GetHeight());
+
+			glDepthMask(GL_TRUE);
+			glEnable(GL_DEPTH_TEST);
 
 			float time = (float)glfwGetTime();
 			float deltaTime = time - m_LastFrameTime;
@@ -78,6 +83,7 @@ namespace GameEngine {
 			}
 				
 			m_Window->OnUpdate(deltaTime);
+			LightMovement(deltaTime, deltaX, deltaY);
 		}
 	}
 
@@ -85,5 +91,43 @@ namespace GameEngine {
 	{
 		m_Running = false;
 		return true;
+	}
+
+	void Application::LightMovement(float deltaTime, float deltaX, float deltaY)
+	{
+		float speed = 2;
+
+		if (InputInterface::IsMouseBtnPressed(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			glm::vec3 up = glm::vec3(0, 1, 0);
+			glm::vec3 right = camera->right;
+			glm::vec3 forward = camera->forward;
+			forward = glm::normalize(glm::vec3(forward.x, 0, forward.z));
+
+			if (InputInterface::IsKeyPressed(GLFW_KEY_S))
+			{
+				lightPosition -= forward * deltaTime * speed;
+			}
+			if (InputInterface::IsKeyPressed(GLFW_KEY_W))
+			{
+				lightPosition += forward * deltaTime * speed;
+			}
+			if (InputInterface::IsKeyPressed(GLFW_KEY_A))
+			{
+				lightPosition -= right * deltaTime * speed;
+			}
+			if (InputInterface::IsKeyPressed(GLFW_KEY_D))
+			{
+				lightPosition += right * deltaTime * speed;
+			}
+			if (InputInterface::IsKeyPressed(GLFW_KEY_Q))
+			{
+				lightPosition -= up * deltaTime * speed;
+			}
+			if (InputInterface::IsKeyPressed(GLFW_KEY_E))
+			{
+				lightPosition += up * deltaTime * speed;
+			}
+		}
 	}
 }
