@@ -80,6 +80,18 @@ namespace GameEngine {
 			{
 				layer->OnUpdate(deltaTime);
 				layer->OnInputUpdate(deltaTime, deltaX, deltaY);
+
+				//light object
+				{
+					if (InputInterface::IsMouseBtnPressed(GLFW_MOUSE_BUTTON_LEFT))
+					{
+						Renderer *renderer = &Renderer::Get();
+						glm::mat4 modelMatrix = glm::mat4(1);
+						modelMatrix = glm::translate(modelMatrix, lightPosition);
+						modelMatrix = glm::scale(modelMatrix, glm::vec3(0.25f, 0.25f, 0.25f));
+						renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["BasicShader"], modelMatrix);
+					}
+				}
 			}
 				
 			m_Window->OnUpdate(deltaTime);

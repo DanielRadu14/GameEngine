@@ -35,7 +35,7 @@ namespace GameEngine {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 	public:
-		glm::vec3 lightPosition = glm::vec3(0, 2, 3.5f);
+		glm::vec3 lightPosition = glm::vec3(0.13f, 0.49, 3.74f);
 
 	protected:
 		Camera *camera;

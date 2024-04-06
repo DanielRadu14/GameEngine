@@ -57,13 +57,7 @@ public:
 
 	void OnUpdate(float deltaTime) override
 	{
-		{
-			glm::mat4 modelMatrix = glm::mat4(1);
-			modelMatrix = glm::translate(modelMatrix, application->lightPosition);
-			modelMatrix = glm::scale(modelMatrix, glm::vec3(0.25f, 0.25f, 0.25f));
-			renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["BasicShader"], modelMatrix);
-		}
-
+		//plane
 		{
 			glm::mat4 modelMatrix = glm::mat4(1);
 			modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -72,6 +66,7 @@ public:
 			renderer->RenderMesh(renderer->meshes["quad"], renderer->shaders["BasicShader"], modelMatrix, glm::vec3(0.51f, 0.51f, 2.04f));
 		}
 
+		//character
 		{
 			head = glm::mat4(1);
 			head = glm::translate(head, glm::vec3(playerMoveDirection.x, playerMoveDirection.y, playerMoveDirection.z));

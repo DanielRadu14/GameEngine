@@ -169,9 +169,8 @@ namespace GameEngine
 		int location = glGetUniformLocation(shader->program, "light_position");
 		glUniform3f(location, application->lightPosition.x, application->lightPosition.y, application->lightPosition.z);
 
-		glm::vec3 eyePosition = camera.position;
 		location = glGetUniformLocation(shader->program, "eye_position");
-		glUniform3f(location, eyePosition.x, eyePosition.y, eyePosition.z);
+		glUniform3f(location, camera.position.x, camera.position.y, camera.position.z);
 
 		location = glGetUniformLocation(shader->program, "material_kd");
 		glUniform1f(location, materialKd);
