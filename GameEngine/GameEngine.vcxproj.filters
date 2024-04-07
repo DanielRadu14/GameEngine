@@ -1342,6 +1342,7 @@
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\GPU\ImplementedShaders.h" />
+    <ClInclude Include="src\GameEngine\GameObject\GameObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -1371,5 +1372,6 @@
     <ClCompile Include="src\GameEngine\Window.cpp">
       <Filter>src\GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\GameObject\GameObject.cpp" />
   </ItemGroup>
 </Project>

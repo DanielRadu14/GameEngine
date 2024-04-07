@@ -11,3 +11,4 @@
 #include "GLFW/glfw3.h"
 #include "GameEngine/Events/Event.h"
 #include "GameEngine/Events/MouseEvent.h"
+#include "GameEngine/GameObject/GameObject.h"

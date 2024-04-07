@@ -18,6 +18,7 @@ namespace GameEngine
 		Mesh* CreateMesh(std::string name, std::vector<float> vertices, std::vector<unsigned int> indices);
 		Mesh* CreateMesh(std::string name, std::vector<float> vertices, std::vector<unsigned int> indices, std::vector<glm::vec3> normals);
 		void RenderMesh(Mesh *mesh, Shader* shader, const glm::mat4 &modelMatrix, const glm::vec3 &color = glm::vec3(1));
+		void RenderMesh(Mesh *mesh, Shader* shader, const glm::mat4 &modelMatrix, float deltaTime, const glm::vec3 &color = glm::vec3(1));
 
 		inline static Renderer& Get() { return *s_Instance; }
 

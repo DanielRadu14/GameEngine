@@ -197,4 +197,46 @@ namespace GameEngine
 		glBindVertexArray(meshes[mesh->name]->GetVertexArray());
 		glDrawElements(GL_TRIANGLES, static_cast<int>(mesh->indices.size()), GL_UNSIGNED_INT, 0);
 	}
+
+	void Renderer::RenderMesh(Mesh *mesh, Shader* shader, const glm::mat4 &modelMatrix, float deltaTime, const glm::vec3 &color)
+	{
+		shader->Bind();
+
+		Application* application = &Application::Get();
+		Camera camera = application->GetCamera();
+
+		int location = glGetUniformLocation(shader->program, "light_position");
+		glUniform3f(location, application->lightPosition.x, application->lightPosition.y, application->lightPosition.z);
+
+		location = glGetUniformLocation(shader->program, "eye_position");
+		glUniform3f(location, camera.position.x, camera.position.y, camera.position.z);
+
+		location = glGetUniformLocation(shader->program, "material_kd");
+		glUniform1f(location, materialKd);
+
+		location = glGetUniformLocation(shader->program, "material_ks");
+		glUniform1f(location, materialKs);
+
+		location = glGetUniformLocation(shader->program, "material_shininess");
+		glUniform1i(location, materialShininess);
+
+		location = glGetUniformLocation(shader->program, "object_color");
+		glUniform3f(location, color.r, color.g, color.b);
+
+		location = glGetUniformLocation(shader->program, "time");
+		glUniform1f(location, deltaTime);
+
+		location = glGetUniformLocation(shader->program, "Model");
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+		location = glGetUniformLocation(shader->program, "View");
+		glm::mat4 viewMatrix = camera.GetViewMatrix();
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
+
+		location = glGetUniformLocation(shader->program, "Projection");
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(application->GetProjectionMatrix()));
+
+		glBindVertexArray(meshes[mesh->name]->GetVertexArray());
+		glDrawElements(GL_TRIANGLES, static_cast<int>(mesh->indices.size()), GL_UNSIGNED_INT, 0);
+	}
 }
