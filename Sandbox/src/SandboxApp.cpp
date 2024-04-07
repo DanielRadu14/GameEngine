@@ -320,7 +320,8 @@ public:
 
 	void OnUpdate(float deltaTime) override
 	{
-		timeToExplosion -= deltaTime;
+		if(collision)
+			timeToExplosion -= deltaTime;
 
 		//plane
 		{
