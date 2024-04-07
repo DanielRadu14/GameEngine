@@ -4,10 +4,9 @@
 #include "InputInterface.h"
 #include "Window.h"
 #include "glm/glm.hpp"
+#include <iostream>
 
 namespace GameEngine {
-
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application* Application::s_Instance = nullptr;
 
@@ -44,9 +43,7 @@ namespace GameEngine {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-
-		//printf(e.ToString().c_str());
-		//printf("\n");
+		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressed));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -79,11 +76,12 @@ namespace GameEngine {
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnUpdate(deltaTime);
-				layer->OnInputUpdate(deltaTime, deltaX, deltaY);
+				if(!controlLight && !controlCamera)
+					layer->OnInputUpdate(deltaTime, deltaX, deltaY);
 
 				//light object
 				{
-					if (InputInterface::IsMouseBtnPressed(GLFW_MOUSE_BUTTON_LEFT))
+					if (controlLight)
 					{
 						Renderer *renderer = &Renderer::Get();
 						glm::mat4 modelMatrix = glm::mat4(1);
@@ -96,6 +94,7 @@ namespace GameEngine {
 				
 			m_Window->OnUpdate(deltaTime);
 			LightMovement(deltaTime, deltaX, deltaY);
+			CameraMovement(deltaTime, deltaX, deltaY);
 		}
 	}
 
@@ -105,11 +104,59 @@ namespace GameEngine {
 		return true;
 	}
 
+	bool Application::OnKeyPressed(KeyPressedEvent& e)
+	{
+		if (e.GetKeyCode() == 76)//L
+		{
+			controlCamera = false;
+			controlLight = !controlLight;
+		}
+		if (e.GetKeyCode() == 67)//C
+		{
+			controlLight = false;
+			controlCamera = !controlCamera;
+		}
+		return true;
+	}
+
+	void Application::CameraMovement(float deltaTime, float deltaX, float deltaY)
+	{
+		if (controlCamera)
+		{
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_S))
+			{
+				camera->MoveBackward(deltaTime * camera->cameraSpeed);
+			}
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_W))
+			{
+				camera->MoveForward(deltaTime * camera->cameraSpeed);
+			}
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_A))
+			{
+				camera->MoveLeft(deltaTime * camera->cameraSpeed);
+			}
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_D))
+			{
+				camera->MoveRight(deltaTime * camera->cameraSpeed);
+			}
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_Q))
+			{
+				camera->MoveDown(deltaTime * camera->cameraSpeed);
+			}
+			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_E))
+			{
+				camera->MoveUp(deltaTime * camera->cameraSpeed);
+			}
+
+			camera->RotateFirstPerson_OX(-deltaX * camera->sensivityOX);
+			camera->RotateFirstPerson_OY(-deltaY * camera->sensivityOY);
+		}
+	}
 	void Application::LightMovement(float deltaTime, float deltaX, float deltaY)
 	{
 		float speed = 2;
 
-		if (InputInterface::IsMouseBtnPressed(GLFW_MOUSE_BUTTON_LEFT))
+		if (controlLight)
 		{
 			glm::vec3 up = glm::vec3(0, 1, 0);
 			glm::vec3 right = camera->right;

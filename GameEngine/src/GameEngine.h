@@ -9,3 +9,5 @@
 #include "GameEngine/InputInterface.h"
 #include "GameEngine/GPU/ImplementedShaders.h"
 #include "GLFW/glfw3.h"
+#include "GameEngine/Events/Event.h"
+#include "GameEngine/Events/MouseEvent.h"

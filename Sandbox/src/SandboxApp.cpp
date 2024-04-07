@@ -20,6 +20,10 @@ public:
 	glm::vec3 playerMoveDirection;
 	float playerRotateAngle;
 
+	glm::mat4 enemy;
+	float enemyMovingCoordinates = 0.0f;
+	bool enemiesGoingForward = true;
+
 	ExampleLayer() : Layer("Example")
 	{
 		renderer = &GameEngine::Renderer::Get();
@@ -66,7 +70,7 @@ public:
 			renderer->RenderMesh(renderer->meshes["quad"], renderer->shaders["BasicShader"], modelMatrix, glm::vec3(0.51f, 0.51f, 2.04f));
 		}
 
-		//character
+		//player
 		{
 			head = glm::mat4(1);
 			head = glm::translate(head, glm::vec3(playerMoveDirection.x, playerMoveDirection.y, playerMoveDirection.z));
@@ -115,45 +119,102 @@ public:
 			renderer->RenderMesh(renderer->meshes["box"], renderer->shaders["IlluminatedShader"], rightLeg, glm::vec3(0.5f, 0.2f, 0.45f));
 		}
 
+		//enemies
+		EnemiesMovement(deltaTime);
+		{
+			enemy = glm::mat4(1);
+			enemy = glm::translate(enemy, glm::vec3(4.0f, 0.77f, 0 + enemyMovingCoordinates));
+			enemy = glm::scale(enemy, glm::vec3(1.0f, 2.0f, 1.0f));
+			renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["BasicShader"], enemy, glm::vec3(0.45f, 0.29f, 0.9f));
+		}
+
 	}
 
 	void OnInputUpdate(float deltaTime, float deltaX, float deltaY) override
 	{
-		//camera movement
-		if (GameEngine::InputInterface::IsMouseBtnPressed(GLFW_MOUSE_BUTTON_RIGHT))
+		//player movement
+		float playerSpeed = 2.0f;
+		float playerRotateFactor = 4.0f;
+		if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_W))
 		{
-			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_S))
-			{
-				camera->MoveBackward(deltaTime * camera->cameraSpeed);
-			}
-			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_W))
-			{
-				camera->MoveForward(deltaTime * camera->cameraSpeed);
-			}
-			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_A))
-			{
-				camera->MoveLeft(deltaTime * camera->cameraSpeed);
-			}
-			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_D))
-			{
-				camera->MoveRight(deltaTime * camera->cameraSpeed);
-			}
-			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_Q))
-			{
-				camera->MoveDown(deltaTime * camera->cameraSpeed);
-			}
-			if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_E))
-			{
-				camera->MoveUp(deltaTime * camera->cameraSpeed);
-			}
-		
-			camera->RotateFirstPerson_OX(-deltaX * camera->sensivityOX);
-			camera->RotateFirstPerson_OY(-deltaY * camera->sensivityOY);
+			camera->MoveForward(camera->cameraSpeed * deltaTime);
+			glm::vec3 moveFactor = glm::normalize(glm::vec3(camera->forward.x, 0, camera->forward.z)) * playerSpeed * deltaTime;
+			moveFactor.y = 0;
+			playerMoveDirection += moveFactor;
+		}
+		if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_S))
+		{
+			camera->MoveBackward(camera->cameraSpeed * deltaTime);
+			glm::vec3 moveFactor = glm::normalize(glm::vec3(camera->forward.x, 0, camera->forward.z)) * playerSpeed * deltaTime;
+			moveFactor.y = 0;
+			playerMoveDirection -= moveFactor;
+		}
+		if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_A))
+		{
+			camera->MoveLeft(camera->cameraSpeed * deltaTime);
+			glm::vec3 moveFactor = glm::normalize(glm::vec3(camera->right.x, 0, camera->right.z)) * playerSpeed * deltaTime;
+			moveFactor.y = 0;
+			playerMoveDirection -= moveFactor;
+		}
+		if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_D))
+		{
+			camera->MoveRight(camera->cameraSpeed * deltaTime);
+			glm::vec3 moveFactor = glm::normalize(glm::vec3(camera->right.x, 0, camera->right.z)) * playerSpeed * deltaTime;
+			moveFactor.y = 0;
+			playerMoveDirection += moveFactor;
+		}
+		if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_Q))
+		{
+			playerRotateAngle += playerRotateFactor * deltaTime;
+			camera->RotateFirstPerson_OX(playerRotateFactor * deltaTime);
+		}
+		if (GameEngine::InputInterface::IsKeyPressed(GLFW_KEY_E))
+		{
+			playerRotateAngle -= playerRotateFactor * deltaTime;
+			camera->RotateFirstPerson_OX(-playerRotateFactor * deltaTime);
 		}
 	}
 
 	void OnEvent(GameEngine::Event& event) override
 	{
+		if (event.GetEventType() == GameEngine::EventType::MouseButtonPressed)
+		{
+			GameEngine::MouseButtonPressedEvent& e = (GameEngine::MouseButtonPressedEvent&)event;
+			if (e.GetMouseButton() == 1)
+			{
+				camera->Set(glm::vec3(playerMoveDirection.x, 1.25f, playerMoveDirection.z),
+					glm::vec3(4.0f,
+						1.0f,
+						0.0f + enemyMovingCoordinates),
+					glm::vec3(0, 1, 0));
+
+				glm::vec3 forward = glm::normalize(glm::vec3(playerMoveDirection.x, 1.25f, playerMoveDirection.z) - glm::vec3(4.0f,
+					1.0f,
+					0.0f + enemyMovingCoordinates));
+
+				playerRotateAngle = glm::acos(glm::dot(forward, glm::vec3(1, 0, 0)));
+			}
+		}
+	}
+
+	void EnemiesMovement(float deltaTime)
+	{
+		if (enemiesGoingForward)
+		{
+			enemyMovingCoordinates += 0.5f * deltaTime;
+			if (enemyMovingCoordinates >= 2.0f)
+			{
+				enemiesGoingForward = false;
+			}
+		}
+		else
+		{
+			enemyMovingCoordinates -= 0.5f * deltaTime;
+			if (enemyMovingCoordinates <= 0.2f)
+			{
+				enemiesGoingForward = true;
+			}
+		}
 	}
 };
 
