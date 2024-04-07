@@ -24,6 +24,11 @@ public:
 	float enemyMovingCoordinates = 0.0f;
 	bool enemiesGoingForward = true;
 
+	glm::vec3 projectilePosition;
+	glm::vec3 shootingDir;
+	bool shooting = false;
+	float shotTime = 0;
+
 	ExampleLayer() : Layer("Example")
 	{
 		renderer = &GameEngine::Renderer::Get();
@@ -34,6 +39,9 @@ public:
 
 		playerRotateAngle = 0;
 		playerMoveDirection = glm::vec3(0.5f, 0, -1);
+
+		projectilePosition = glm::vec3(0, 0, 0);
+		shootingDir = glm::vec3(0);
 
 		{
 			std::vector<float> vertices = {
@@ -128,6 +136,22 @@ public:
 			renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["BasicShader"], enemy, glm::vec3(0.45f, 0.29f, 0.9f));
 		}
 
+		//projectile
+		{
+			if (shooting)
+			{
+				projectilePosition += shootingDir * deltaTime * 4.0f;
+
+				glm::mat4 projectile = glm::mat4(1);
+				projectile = glm::translate(projectile, glm::vec3(projectilePosition.x, 0.75f, projectilePosition.z));
+				projectile = glm::scale(projectile, glm::vec3(0.25f, 0.25f, 0.25f));
+				renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["BasicShader"], projectile);
+			}
+
+			shotTime -= deltaTime;
+			if (shotTime <= 0)
+				shooting = false;
+		}
 	}
 
 	void OnInputUpdate(float deltaTime, float deltaX, float deltaY) override
@@ -172,6 +196,14 @@ public:
 		{
 			playerRotateAngle -= playerRotateFactor * deltaTime;
 			camera->RotateFirstPerson_OX(-playerRotateFactor * deltaTime);
+		}
+
+		if (GameEngine::InputInterface::IsMouseBtnPressed(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			shooting = true;
+			shotTime = 2.0f;
+			projectilePosition = playerMoveDirection;
+			shootingDir = glm::normalize(glm::vec3(camera->forward.x, 0, camera->forward.z));
 		}
 	}
 
