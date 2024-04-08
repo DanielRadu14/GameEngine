@@ -1,7 +1,5 @@
 #pragma once
 
-#ifdef GE_PLATFORM_WINDOWS
-
 extern GameEngine::Application* GameEngine::CreateApplication();
 
 std::string GetParentDir(const std::string &filePath)
@@ -19,5 +17,3 @@ int main(int agrc, char** argv) {
 	app->Run();
 	delete app;
 }
-
-#endif

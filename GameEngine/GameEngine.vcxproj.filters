@@ -16,6 +16,9 @@
     <Filter Include="src\GameEngine\GPU">
       <UniqueIdentifier>{0751962E-F334-5784-5C95-51D748984106}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameEngine\GameObject">
+      <UniqueIdentifier>{8C379874-F8F9-CBFE-41AA-5A8BADABA4DC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
     </Filter>
@@ -48,9 +51,6 @@
     <ClInclude Include="src\GameEngine\Camera\Camera.h">
       <Filter>src\GameEngine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core.h">
-      <Filter>src\GameEngine</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameEngine\EntryPoint.h">
       <Filter>src\GameEngine</Filter>
     </ClInclude>
@@ -66,6 +66,9 @@
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h">
       <Filter>src\GameEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\GPU\ImplementedShaders.h">
+      <Filter>src\GameEngine\GPU</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\GPU\Mesh.h">
       <Filter>src\GameEngine\GPU</Filter>
     </ClInclude>
@@ -74,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="src\GameEngine\GPU\Shader.h">
       <Filter>src\GameEngine\GPU</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\GameObject\GameObject.h">
+      <Filter>src\GameEngine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Input.h">
       <Filter>src\GameEngine</Filter>
@@ -1341,8 +1347,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\GPU\ImplementedShaders.h" />
-    <ClInclude Include="src\GameEngine\GameObject\GameObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -1360,6 +1364,9 @@
     <ClCompile Include="src\GameEngine\GPU\Shader.cpp">
       <Filter>src\GameEngine\GPU</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\GameObject\GameObject.cpp">
+      <Filter>src\GameEngine\GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="src\GameEngine\Input.cpp">
       <Filter>src\GameEngine</Filter>
     </ClCompile>
@@ -1372,6 +1379,5 @@
     <ClCompile Include="src\GameEngine\Window.cpp">
       <Filter>src\GameEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\GameObject\GameObject.cpp" />
   </ItemGroup>
 </Project>

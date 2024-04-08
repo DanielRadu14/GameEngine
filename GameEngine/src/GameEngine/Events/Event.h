@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../Core.h"
-
 #include <functional>
 #include <string>
+
+#define BIT(x) (1 << x)
 
 namespace GameEngine {
 

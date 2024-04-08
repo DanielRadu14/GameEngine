@@ -320,9 +320,6 @@ public:
 
 	void OnUpdate(float deltaTime) override
 	{
-		if(collision)
-			timeToExplosion -= deltaTime;
-
 		//plane
 		{
 			glm::mat4 modelMatrix = glm::mat4(1);
@@ -382,8 +379,10 @@ public:
 		}
 
 		//enemies
-		EnemiesMovement(deltaTime);
 		{
+			if (!collision)
+				EnemiesMovement(deltaTime);
+
 			enemy = new GameEngine::GameObject();
 			enemy->Translate(glm::vec3(4.0f, 0.77f, 0 + enemyMovingCoordinates));
 			enemy->Scale(glm::vec3(1.0f, 2.0f, 1.0f));
@@ -395,6 +394,9 @@ public:
 
 		//projectile
 		{
+			if (collision)
+				timeToExplosion -= deltaTime;
+
 			if (shooting)
 			{
 				projectilePosition += shootingDir * deltaTime * 4.0f;
@@ -402,7 +404,9 @@ public:
 				GameEngine::GameObject *projectile = new GameEngine::GameObject();
 				projectile->Translate(glm::vec3(projectilePosition.x, 0.75f, projectilePosition.z));
 				projectile->Scale(glm::vec3(0.25f, 0.25f, 0.25f));
-				renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["BasicShader"], projectile->GetModelMatrix());
+
+				if(!collision)
+					renderer->RenderMesh(renderer->meshes["sphere"], renderer->shaders["BasicShader"], projectile->GetModelMatrix());
 
 				if (projectile->CheckCollision(enemy) == true)
 					collision = true;

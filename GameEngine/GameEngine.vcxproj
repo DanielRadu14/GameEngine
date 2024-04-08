@@ -152,17 +152,16 @@
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Application.h" />
     <ClInclude Include="src\GameEngine\Camera\Camera.h" />
-    <ClInclude Include="src\GameEngine\Core.h" />
     <ClInclude Include="src\GameEngine\EntryPoint.h" />
     <ClInclude Include="src\GameEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\GameEngine\Events\Event.h" />
     <ClInclude Include="src\GameEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h" />
-    <ClInclude Include="src\GameEngine\GameObject\GameObject.h" />
     <ClInclude Include="src\GameEngine\GPU\ImplementedShaders.h" />
     <ClInclude Include="src\GameEngine\GPU\Mesh.h" />
     <ClInclude Include="src\GameEngine\GPU\Renderer.h" />
     <ClInclude Include="src\GameEngine\GPU\Shader.h" />
+    <ClInclude Include="src\GameEngine\GameObject\GameObject.h" />
     <ClInclude Include="src\GameEngine\Input.h" />
     <ClInclude Include="src\GameEngine\InputInterface.h" />
     <ClInclude Include="src\GameEngine\Layer.h" />
@@ -589,10 +588,10 @@
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp" />
     <ClCompile Include="src\GameEngine\Camera\Camera.cpp" />
-    <ClCompile Include="src\GameEngine\GameObject\GameObject.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Mesh.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Renderer.cpp" />
     <ClCompile Include="src\GameEngine\GPU\Shader.cpp" />
+    <ClCompile Include="src\GameEngine\GameObject\GameObject.cpp" />
     <ClCompile Include="src\GameEngine\Input.cpp" />
     <ClCompile Include="src\GameEngine\Layer.cpp" />
     <ClCompile Include="src\GameEngine\LayerStack.cpp" />

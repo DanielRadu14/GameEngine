@@ -2,8 +2,9 @@
 #include "glad/glad.h"
 #include "vector"
 
-namespace GameEngine {
-
+namespace GameEngine 
+{
+	//shader compilation code from this wiki page : https://www.khronos.org/opengl/wiki/Shader_Compilation
 	Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource)
 	{
 		// Create an empty vertex shader handle

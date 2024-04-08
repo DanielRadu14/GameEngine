@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core.h"
 #include "Events/Event.h"
 
 namespace GameEngine {
@@ -20,7 +19,6 @@ namespace GameEngine {
 		}
 	};
 
-	// Interface representing a desktop system based Window
 	class WindowInterface
 	{
 	public:
