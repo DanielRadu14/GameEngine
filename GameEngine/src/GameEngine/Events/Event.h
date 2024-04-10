@@ -3,8 +3,6 @@
 #include <functional>
 #include <string>
 
-#define BIT(x) (1 << x)
-
 namespace GameEngine {
 
 	enum class EventType
@@ -17,23 +15,18 @@ namespace GameEngine {
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
 								virtual EventType GetEventType() const override { return GetStaticType(); }\
-								virtual const char* GetName() const override { return #type; }
 
 	class Event
 	{
 		friend class EventDispatcher;
 	public:
-		bool m_Handled = false;
-
 		virtual EventType GetEventType() const = 0;
-		virtual const char* GetName() const = 0;
-		virtual std::string ToString() const { return GetName(); }
 	};
 
 	class EventDispatcher
 	{
 		template<typename T>
-		using EventFn = std::function<bool(T&)>;
+		using EventFn = std::function<void(T&)>;
 	public:
 		EventDispatcher(Event& event)
 			: m_Event(event)
@@ -45,7 +38,7 @@ namespace GameEngine {
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				func(*(T*)&m_Event);
 				return true;
 			}
 			return false;

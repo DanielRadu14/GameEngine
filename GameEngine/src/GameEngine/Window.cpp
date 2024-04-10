@@ -40,7 +40,6 @@ namespace GameEngine {
 
 		if (!s_GLFWInitialized)
 		{
-			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
 			glfwSetErrorCallback(GLFWErrorCallback);
 
@@ -53,7 +52,7 @@ namespace GameEngine {
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
-		//SET GLFW callbacks
+		//GLFW callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			
@@ -89,7 +88,7 @@ namespace GameEngine {
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent event(key, true);
+					KeyPressedEvent event(key, 1);
 					data.EventCallback(event);
 					break;
 				}

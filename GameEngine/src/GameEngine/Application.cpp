@@ -14,7 +14,7 @@ namespace GameEngine {
 	{
 		s_Instance = this;
 		m_Window = std::unique_ptr<WindowInterface>(WindowInterface::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
 		camera = new Camera();
 		camera->Set(glm::vec3(0, 2, 3.5f), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
@@ -34,22 +34,15 @@ namespace GameEngine {
 		m_LayerStack.PushLayer(layer);
 	}
 
-	void Application::PushOverlay(Layer* layer)
-	{
-		m_LayerStack.PushOverlay(layer);
-	}
-
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressed));
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(Application::OnKeyPressed));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
 			(*--it)->OnEvent(e);
-			if (e.m_Handled)
-				break;
 		}
 	}
 
@@ -98,13 +91,12 @@ namespace GameEngine {
 		}
 	}
 
-	bool Application::OnWindowClose(WindowCloseEvent& e)
+	void Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
-		return true;
 	}
 
-	bool Application::OnKeyPressed(KeyPressedEvent& e)
+	void Application::OnKeyPressed(KeyPressedEvent& e)
 	{
 		if (e.GetKeyCode() == 76)//L
 		{
@@ -116,7 +108,6 @@ namespace GameEngine {
 			controlLight = false;
 			controlCamera = !controlCamera;
 		}
-		return true;
 	}
 
 	void Application::CameraMovement(float deltaTime, float deltaX, float deltaY)

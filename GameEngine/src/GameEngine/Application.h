@@ -9,7 +9,7 @@
 #include "GameEngine/GPU/Mesh.h"
 #include "Camera/Camera.h"
 
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
 namespace GameEngine {
 	class Application
@@ -23,7 +23,6 @@ namespace GameEngine {
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* layer);
 
 		inline WindowInterface& GetWindow() { return *m_Window;}
 		inline static Application& Get() { return *s_Instance; }
@@ -35,8 +34,8 @@ namespace GameEngine {
 		void CameraMovement(float deltaTime, float deltaX, float deltaY);
 
 	private:
-		bool OnWindowClose(WindowCloseEvent& e);
-		bool OnKeyPressed(KeyPressedEvent& e);
+		void OnWindowClose(WindowCloseEvent& e);
+		void OnKeyPressed(KeyPressedEvent& e);
 
 	public:
 		glm::vec3 lightPosition = glm::vec3(0.13f, 0.49, 3.74f);
