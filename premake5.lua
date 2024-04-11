@@ -38,7 +38,6 @@ project "GameEngine"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.glm}"
@@ -99,7 +98,6 @@ project "Sandbox"
 
 	includedirs
 	{
-		"GameEngine/vendor/spdlog/include",
 		"GameEngine/src",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.GLFW}",
