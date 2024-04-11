@@ -1,0 +1,26 @@
+EntryPoint.h contine metoda main() care instantiaza aplicatia cu bucla principala a motorului grafic si o ruleaza. In acest fel, este abstractizat procesul fata de aplicatia grafica propriu-zis implementata care foloseste game engine-ul si nu ii revine utilizatorului responsabilitatea de a define functia main().
+
+Application (.h/.cpp) contine bucla principala a motorului grafic ce va fi rulata cand este instantiata pe partea de client (Sandbox). Constructorul clasei instantiaza o fereastra si seteaza functia de callback pentru evenimente (OnEvent), o camera default de tipul FPS si un obiect de tip Renderer responsabil de redarea graficii in fereastra principala. Metoda Run() contine bucla principala si va apela metodele de OnUpdate() de pe Window si de pe fiecare Layer si va controla de asemenea camera FPS implementata default si sursa de lumina din scena.
+
+Event.h contine EventType – un enum care contine toate tipurile de evenimente definite in aplicatie si un EventDispatcher care contribuie la procesul de recunoastere a unui eveniment generic in metoda de OnEvent si apelarea unei functii definiti corespunzatoare tipului de event.
+ApplicationEvent, KeyEvent si MouseEvent (.h) contin tipurile de event corespunzatoare si mentionate in enum-ul anterior.
+
+Window (.cpp/.h) extind WindowInterface si sunt responsabile de fereastra principala a motorului grafic. Structura WindowData contine informatii despre fereastra : titlu, dimensiuni si daca VSync este activat sau nu. De asemenea, contine functia de callback setata anterior. 
+Window.cpp seteaza functiile de callback pentru evenimentele definite in aplicatie, care vor fi mai apoi procesate in functia de callback a ferestrei principale.
+
+Sistemul de “straturi” (Layer .h/.cpp si LayerStack .h/.cpp) a fost dezvoltat in vederea gestiunii viitoare a mai multor straturi ce sunt redate de catre aplicatia grafica in vederea unei organizari ierarhice a entitatilor si o propagare corecta a evenimentelor (spre ex un sistem 2D GUI ce la apasarea unui buton, nu propaga evenimentul la straturile inferioare randate anterior sau afisarea unui text de debug sau a unui gyzmo de control al obiectelor).
+
+InputInterface.h impreuna cu Input (.h/.cpp) sunt responsabile de gestiunea unor evenimente de tipul apasarea mouse-ului sau a unei taste si mutarea mouse-ului ce inlocuiesc evenimentele clasice definite anterior pentru o mai buna experienta a jocului (spre ex. implementarea camerei FPS cu evenimentele clasice avea un comportament sacadat).
+
+Camera (.h/.cpp) implementeaza un API pentru controlul camerei cu proiectie perspectiva din scena. Este implementata o camera FPS de baza de catre aplicatie, dar utilizatorului poate implementa propria camera in jocul dezvoltat folosind metodele puse la dispozitie.
+GameObject (.h/.cpp) abstractieaza crearea si manipularea unui obiect 3D in scena, oferind metode de creare, translatie, rotatie si scalare. De asemenea, ofera o metoda standard de verificare a coliziunii intre doua obiecte din scena prin metoda bounding boxes AABB-AABB.
+
+Mesh (.h/.cpp) contine metode de creare a meshelor ce vor fi redate in scena, continand informatiile acestora : varfuri, indicii pentru crearea triunghiurilor si normalele la suprafata folosite in iluminare. Toate acestea sunt incapsulate in VAO (Vertex Array Object).
+
+Shader (.h/.cpp) contine doar constructorul, responsabil de crearea unui shader prin furnizarea codului pentru Vertex Shader si Fragment Shader si compilarea acestora. Codul de compilare a fost luat de pe pagina de wiki : https://www.khronos.org/opengl/wiki/Shader_Compilation.
+
+Renderer (.h/.cpp) contine metodele de creare a mesh-urilor, fie prin incarcarea obiectelor de tip .obj, fie prin furnizarea manuala de utilizator a coordonatelor varfurilor, indicilor si normalelor. De asemenea, contine metodele de redare a mesh-urilor in aplicatia grafica. 
+
+Pentru generarea proiectului este folosit premake.
+
+https://github.com/DanielRadu14/GameEngine
