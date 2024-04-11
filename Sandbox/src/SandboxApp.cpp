@@ -322,11 +322,11 @@ public:
 	{
 		//plane
 		{
-			glm::mat4 modelMatrix = glm::mat4(1);
-			modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
-			modelMatrix = glm::scale(modelMatrix, glm::vec3(10.0f, 1.0f, 10.0f));
-			modelMatrix = glm::rotate(modelMatrix, RADIANS(90), glm::vec3(1, 0, 0));
-			renderer->RenderMesh(renderer->meshes["quad"], renderer->shaders["BasicShader"], modelMatrix, glm::vec3(0.51f, 0.51f, 2.04f));
+			GameEngine::GameObject *modelMatrix = new GameEngine::GameObject();
+			modelMatrix->Translate(glm::vec3(0.0f, 0.0f, 0.0f));
+			modelMatrix->Scale(glm::vec3(10.0f, 1.0f, 10.0f));
+			modelMatrix->Rotate(glm::vec4(1, 0, 0, RADIANS(90)));
+			renderer->RenderMesh(renderer->meshes["quad"], renderer->shaders["BasicShader"], modelMatrix->GetModelMatrix(), glm::vec3(0.51f, 0.51f, 2.04f));
 		}
 
 		//player
@@ -473,23 +473,25 @@ public:
 
 	void OnEvent(GameEngine::Event& event) override
 	{
-		if (event.GetEventType() == GameEngine::EventType::MouseButtonPressed)
+		GameEngine::EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<GameEngine::MouseButtonPressedEvent>(BIND_EVENT_FN(ExampleLayer::OnKeyPressed));
+	}
+
+	void OnKeyPressed(GameEngine::MouseButtonPressedEvent& event)
+	{
+		if (event.GetMouseButton() == 1)
 		{
-			GameEngine::MouseButtonPressedEvent& e = (GameEngine::MouseButtonPressedEvent&)event;
-			if (e.GetMouseButton() == 1)
-			{
-				camera->Set(glm::vec3(playerMoveDirection.x, 1.25f, playerMoveDirection.z),
-					glm::vec3(4.0f,
-						1.0f,
-						0.0f + enemyMovingCoordinates),
-					glm::vec3(0, 1, 0));
-
-				glm::vec3 forward = glm::normalize(glm::vec3(playerMoveDirection.x, 1.25f, playerMoveDirection.z) - glm::vec3(4.0f,
+			camera->Set(glm::vec3(playerMoveDirection.x, 1.25f, playerMoveDirection.z),
+				glm::vec3(4.0f,
 					1.0f,
-					0.0f + enemyMovingCoordinates));
+					0.0f + enemyMovingCoordinates),
+				glm::vec3(0, 1, 0));
 
-				playerRotateAngle = glm::acos(glm::dot(forward, glm::vec3(1, 0, 0)));
-			}
+			glm::vec3 forward = glm::normalize(glm::vec3(playerMoveDirection.x, 1.25f, playerMoveDirection.z) - glm::vec3(4.0f,
+				1.0f,
+				0.0f + enemyMovingCoordinates));
+
+			playerRotateAngle = glm::acos(glm::dot(forward, glm::vec3(1, 0, 0)));
 		}
 	}
 

@@ -20,7 +20,6 @@ namespace GameEngine {
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 		inline float GetAspectRatio() const override { return m_Data.AspectRatio; }
 
-		// Window attributes
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
